@@ -1,40 +1,62 @@
-import os
-import tkinter as tk
-from tkinter import filedialog
-from PIL import Image, ImageTk
+def celsius_to_fahrenheit(celsius):
+    return (celsius * 9/5) + 32
 
-class ImageGallery:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Image Gallery")
+def fahrenheit_to_celsius(fahrenheit):
+    return (fahrenheit - 32) * 5/9
 
-        self.image_label = tk.Label(root)
-        self.image_label.pack()
+def celsius_to_kelvin(celsius):
+    return celsius + 273.15
 
-        self.button_frame = tk.Frame(root)
-        self.button_frame.pack()
+def kelvin_to_celsius(kelvin):
+    return kelvin - 273.15
 
-        self.prev_button = tk.Button(self.button_frame, text="Previous", command=self.prev_image)
-        self.prev_button.pack(side=tk.LEFT)
+def fahrenheit_to_kelvin(fahrenheit):
+    celsius = fahrenheit_to_celsius(fahrenheit)
+    return celsius_to_kelvin(celsius)
 
-        self.next_button = tk.Button(self.button_frame, text="Next", command=self.next_image)
-        self.next_button.pack(side=tk.LEFT)
+def kelvin_to_fahrenheit(kelvin):
+    celsius = kelvin_to_celsius(kelvin)
+    return celsius_to_fahrenheit(celsius)
 
-        self.load_button = tk.Button(self.button_frame, text="Load Images", command=self.load_images)
-        self.load_button.pack(side=tk.LEFT)
+def main():
+    print("Temperature Conversion Program")
+    print("1. Celsius to Fahrenheit")
+    print("2. Fahrenheit to Celsius")
+    print("3. Celsius to Kelvin")
+    print("4. Kelvin to Celsius")
+    print("5. Fahrenheit to Kelvin")
+    print("6. Kelvin to Fahrenheit")
+    print("7. Exit")
 
-        self.images = []
-        self.current_image_index = 0
+    while True:
+        choice = input("Choose an option (1-7): ")
 
-    def load_images(self):
-        folder_path = filedialog.askdirectory()
-        if folder_path:
-            self.images = [os.path.join(folder_path, f) for f in os.listdir(folder_path)
-                           if f.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp'))]
-            if self.images:
-                self.current_image_index = 0
-                self.show_image()
+        if choice == '1':
+            celsius = float(input("Enter temperature in Celsius: "))
+            print(f"{celsius}°C = {celsius_to_fahrenheit(celsius)}°F")
+        elif choice == '2':
+            fahrenheit = float(input("Enter temperature in Fahrenheit: "))
+            print(f"{fahrenheit}°F = {fahrenheit_to_celsius(fahrenheit)}°C")
+        elif choice == '3':
+            celsius = float(input("Enter temperature in Celsius: "))
+            print(f"{celsius}°C = {celsius_to_kelvin(celsius)}K")
+        elif choice == '4':
+            kelvin = float(input("Enter temperature in Kelvin: "))
+            print(f"{kelvin}K = {kelvin_to_celsius(kelvin)}°C")
+        elif choice == '5':
+            fahrenheit = float(input("Enter temperature in Fahrenheit: "))
+            print(f"{fahrenheit}°F = {fahrenheit_to_kelvin(fahrenheit)}K")
+        elif choice == '6':
+            kelvin = float(input("Enter temperature in Kelvin: "))
+            print(f"{kelvin}K = {kelvin_to_fahrenheit(kelvin)}°F")
+        elif choice == '7':
+            print("Exiting the program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
-    def show_image(self):
+if __name__ == "__main__":
+    main()
+
         if self.images:
             image_path = self.images[self.cu
