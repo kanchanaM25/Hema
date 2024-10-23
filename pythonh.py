@@ -1,55 +1,66 @@
-def celsius_to_fahrenheit(celsius):
-    return (celsius * 9/5) + 32
+class Post:
+    def __init__(self, content, user):
+        self.content = content
+        self.user = user
 
-def fahrenheit_to_celsius(fahrenheit):
-    return (fahrenheit - 32) * 5/9
+    def __str__(self):
+        return f"{self.user}: {self.content}"
 
-def celsius_to_kelvin(celsius):
-    return celsius + 273.15
+class User:
+    def __init__(self, username):
+        self.username = username
+        self.posts = []
 
-def kelvin_to_celsius(kelvin):
-    return kelvin - 273.15
+    def create_post(self, content):
+        post = Post(content, self.username)
+        self.posts.append(post)
 
-def fahrenheit_to_kelvin(fahrenheit):
-    celsius = fahrenheit_to_celsius(fahrenheit)
-    return celsius_to_kelvin(celsius)
+class MiniFacebook:
+    def __init__(self):
+        self.users = {}
 
-def kelvin_to_fahrenheit(kelvin):
-    celsius = kelvin_to_celsius(kelvin)
-    return celsius_to_fahrenheit(celsius)
+    def register_user(self, username):
+        if username in self.users:
+            print("Username already exists.")
+        else:
+            self.users[username] = User(username)
+            print(f"User {username} registered successfully.")
+
+    def create_post(self, username, content):
+        if username in self.users:
+            self.users[username].create_post(content)
+            print("Post created successfully.")
+        else:
+            print("User not found.")
+
+    def display_posts(self):
+        print("\nAll Posts:")
+        for user in self.users.values():
+            for post in user.posts:
+                print(post)
 
 def main():
-    print("Temperature Conversion Program")
-    print("1. Celsius to Fahrenheit")
-    print("2. Fahrenheit to Celsius")
-    print("3. Celsius to Kelvin")
-    print("4. Kelvin to Celsius")
-    print("5. Fahrenheit to Kelvin")
-    print("6. Kelvin to Fahrenheit")
-    print("7. Exit")
+    facebook = MiniFacebook()
 
     while True:
-        choice = input("Choose an option (1-7): ")
+        print("\nMini Facebook Menu:")
+        print("1. Register User")
+        print("2. Create Post")
+        print("3. View Posts")
+        print("4. Exit")
+
+        choice = input("Choose an option (1-4): ")
 
         if choice == '1':
-            celsius = float(input("Enter temperature in Celsius: "))
-            print(f"{celsius}°C = {celsius_to_fahrenheit(celsius)}°F")
+            username = input("Enter username: ")
+            facebook.register_user(username)
         elif choice == '2':
-            fahrenheit = float(input("Enter temperature in Fahrenheit: "))
-            print(f"{fahrenheit}°F = {fahrenheit_to_celsius(fahrenheit)}°C")
+            username = input("Enter your username: ")
+            content = input("Enter your post: ")
+            facebook.create_post(username, content)
         elif choice == '3':
-            celsius = float(input("Enter temperature in Celsius: "))
-            print(f"{celsius}°C = {celsius_to_kelvin(celsius)}K")
+            facebook.display_posts()
         elif choice == '4':
-            kelvin = float(input("Enter temperature in Kelvin: "))
-            print(f"{kelvin}K = {kelvin_to_celsius(kelvin)}°C")
-        elif choice == '5':
-            fahrenheit = float(input("Enter temperature in Fahrenheit: "))
-            print(f"{fahrenheit}°F = {fahrenheit_to_kelvin(fahrenheit)}K")
-        elif choice == '6':
-            kelvin = float(input("Enter temperature in Kelvin: "))
-            print(f"{kelvin}K = {kelvin_to_fahrenheit(kelvin)}°F")
-        elif choice == '7':
             print("Exiting the program.")
             break
         else:
@@ -57,6 +68,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-        if self.images:
-            image_path = self.images[self.cu
